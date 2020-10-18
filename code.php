@@ -20,13 +20,14 @@ class Plugin_name
     public function plugin_form_submission_callback()
     {
 
-        parse_str($_POST['selectFont'], $searcharray);
+        parse_str($_POST['form_data'], $searcharray);
 
         $data['name'] = $searcharray['name'];
         $data['email'] = $searcharray['email'];
         $data['phone'] = $searcharray['phone'];
         update_option('testgd', $data);
         $response['message'] = 'data send successfully';
+        $response['request_url'] = admin_url() . 'admin.php?page=wp_aax_testing';
         echo json_encode($response);
         wp_die();
 
@@ -35,7 +36,7 @@ class Plugin_name
 
     public function sub_menu_callback()
     {
-        add_menu_page('My Custom Page', 'My Custom Page', 'manage_options', 'wp_aax_testing', [$this, 'wp_aax_testing_callback']);
+        add_menu_page('My Custom Page', 'Ajax Form', 'manage_options', 'wp_aax_testing', [$this, 'wp_aax_testing_callback']);
     }
 
 
@@ -63,7 +64,7 @@ class Plugin_name
                 </div>
 
                 <div class="form-control">
-                    <input type="submit" value="submit" id="wpifw_pdf_invoice_download_font">
+                    <input type="submit" value="submit" id="submitButton">
                 </div>
 
             </form>
